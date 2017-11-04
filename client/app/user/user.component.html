@@ -1,0 +1,22 @@
+<p>
+  userList <br>
+  user name : {{userName}} 
+  <br>
+  <!-- {{}} : 단방향 , [(ngModel)] : 양방향 -->
+  <input type = "text" [(ngModel)] = "userName"/>
+  <input type = "text" [(ngModel)] = "userAge"/>
+  <button (click)="addUser()">add user</button> <br>
+
+  <input type = "text" [(ngModel)]="userNum"/>
+  <button (click)="updateUser()">update user</button> <br>
+
+  <input type = "text" [(ngModel)]="userNum"/>
+  <button (click)="deleteUser()">delete user</button>
+
+</p>
+
+<ul>
+  <li *ngFor="let un of userNameList">
+    {{ un.name }}, {{un.age}}
+  </li>
+</ul>
