@@ -1,3 +1,14 @@
+
+<app-user-list [userList]='userList' (outputTest)="outputTest($event)"> <!-- 부모에서 자식전달, 자식에서 부모전달  -->
+</app-user-list>
+
+<app-user-insert (outputUser)="outputUser($event)">
+</app-user-insert>
+<button (click)="getUsers()">getUsers</button> <br>
+
+
+
+
 <p>
   userList <br>
   user name : {{userName}} 
@@ -11,12 +22,34 @@
   <button (click)="updateUser()">update user</button> <br>
 
   <input type = "text" [(ngModel)]="userNum"/>
-  <button (click)="deleteUser()">delete user</button>
-
+  <button (click)="deleteUser()">delete user</button> <br>
 </p>
-
 <ul>
   <li *ngFor="let un of userNameList">
     {{ un.name }}, {{un.age}}
   </li>
 </ul>
+<button (click)="selectUserList()">getUsers</button>
+<div class = "container">
+  <h2>User List</h2>
+  <table class = "table table-hover">
+    <thead>
+      <tr>
+        <th>userNo</th>
+        <th>userName</th>
+        <th>userId</th>
+        <th>userPwd</th>
+        <th>완료 여부</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let un of userList">
+        <td><input type = "text" value = "{{un.userNo}}"/></td>
+        <td><input type = "text" [(ngModel)] = "un.userName"/></td>
+        <td><input type = "text" [(ngModel)] = "un.userId"/></td>
+        <td><input type = "text" [(ngModel)] = "un.userPwd"/></td>
+        <td><input type = "checkbox" [checked] = "un.complete"/></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

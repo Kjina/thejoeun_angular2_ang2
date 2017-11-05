@@ -4,6 +4,10 @@ var bodyParser = require('body-parser');
 var path = require("path");
 
 var app = express();
+var dbConfig = require('./conf/dbconfig.js');
+const mysql = require('mysql');
+var connection = mysql.createConnection(dbConfig);
+
 app.set('port', (process.env.PORT || 3000));
 
 app.use('/', express.static(__dirname + '/../dist'));
@@ -16,12 +20,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 app.use(function (req, res, next) {
-    if (path.extname(req.path).length > 0) {
-        // normal static file request
-        next();
-    }
-    else {
-        // redirect all html requests to `index.html`
+    console.log(req.path);
+    var url = req.path;
+    if(url === '/api/users'){
+        connection.query('SELECT userNo, userName, userId, userPwd from user_info',
+        function(err, rows){
+            if(err) throw err;
+
+            console.log('The solution is : ', rows);
+            //res.send(rows);
+            res.json(rows);
+        })
+    }else{
         res.sendFile(path.resolve(__dirname + '/../dist/index.html'));
     }
 });
