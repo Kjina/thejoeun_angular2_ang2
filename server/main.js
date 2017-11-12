@@ -50,7 +50,19 @@ app.get('/api/userhis/:userNo', (req, res, next)=>{
     });
 });
 
-app.post('/api/users',(req,res,next)=>{ // 선생님꺼 가져오기 id 있으면 가져오지못하는거..
+app.post('/api/users',(req,res,next)=>{ // 선생님꺼...복사하기
+    // var sql = "select 1 from user_info where userId =?";
+    // var values = [req.body.userId];
+    // connection2(dbConfig).then((con)=>{
+    //     return con.query(sql,values);
+    // }).then((result)=>{
+    //     if(result.length>0){
+    //         throw{"code":"중복에러","errno":1,"sqlMessage":"중복"}
+    //     }
+    //     return true;
+    // }).then
+
+
     var sql = "insert into user_info(";
     sql += "userId, userName, userPwd, complete)";
     sql += "values(?,?,?,?)";
