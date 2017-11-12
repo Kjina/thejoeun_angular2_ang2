@@ -4,7 +4,10 @@
 
 <app-user-insert (outputUser)="outputUser($event)">
 </app-user-insert>
-<button (click)="getUsers()">getUsers</button> <br>
+
+
+
+<!-- <button (click)="getUsers()">getUsers33333333</button> <br> -->
 
 
 
@@ -24,12 +27,13 @@
   <input type = "text" [(ngModel)]="userNum"/>
   <button (click)="deleteUser()">delete user</button> <br>
 </p>
+
 <ul>
-  <li *ngFor="let un of userNameList">
+  <li *ngFor="let un of userNameList" (click)="showUserHis(un.userNo)">
     {{ un.name }}, {{un.age}}
   </li>
 </ul>
-<button (click)="selectUserList()">getUsers</button>
+<button (click)="getUsers()">getUsers</button>
 <div class = "container">
   <h2>User List</h2>
   <table class = "table table-hover">
@@ -43,8 +47,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor = "let un of userList">
-        <td><input type = "text" value = "{{un.userNo}}"/></td>
+      <tr *ngIf ="userList.length==0">
+        <td colspan="6">데이터 없음</td>
+      </tr>
+      <tr *ngFor = "let un of userList" (click)="showUserHis(un.userNo)" >
+        <td><input type = "text" value = "{{un.userNo}}" disabled=true/></td>
         <td><input type = "text" [(ngModel)] = "un.userName"/></td>
         <td><input type = "text" [(ngModel)] = "un.userId"/></td>
         <td><input type = "text" [(ngModel)] = "un.userPwd"/></td>
@@ -53,3 +60,13 @@
     </tbody>
   </table>
 </div>
+
+<app-user-his [(visible)]="showDialog">
+  <p *ngFor = "let us of userHisList">
+    {{us.userNo}}, {{us.userData}}
+  </p>  
+  <p *ngIf = "userHisList.length == 0">
+    데이터가 없습니다.
+  </p>
+ 
+</app-user-his> 

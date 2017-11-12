@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
+import {CommonServiceService} from '../common/common-service.service'
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import {User} from './user';
+import {UserHis} from './userhis';
 @Injectable()
-export class UserDataService {
+export class UserDataService extends CommonServiceService{
   userList:Array<User> = [];
   lastUserNo:number = 0;
-  usersUrl:string = "api/users";
-  constructor(private _http:Http) { 
+  private usersUrl:string = "api/users";
+  private userHisUrl = '/api/userhis/';
+
+  constructor(protected _http:Http) { 
+    super(_http);
     // let testUser : User = new User({
     //   userId : "test1",
     //   userName : "테스트1",
@@ -41,9 +46,9 @@ export class UserDataService {
     return this.userList;
   }
   
-  addUser(user:User):UserDataService{
-    this.userList.push(user);
-    return this;
+  addUser(user:User):Observable<User[]>{
+   // this.userList.push(user);
+    return super.postJson(this.usersUrl, user);
   }
 
   addInsertUser(user:User):UserDataService{
@@ -54,21 +59,13 @@ export class UserDataService {
   }
 
   getUsers() : Observable<User[]>{
-    return this._http.get(this.usersUrl).map(this.extractData).catch(this.handleError);
+    return super.getJson(this.usersUrl);
   }
 
-  private extractData(res:Response){
-    let body = res.json();
-    return body || {};
+  getUsersHis(userNo:number):
+  Observable<UserHis[]>{
+    console.log("abc",this.userHisUrl+userNo);
+    return super.getJson(this.userHisUrl+userNo);
   }
-  
-  private handleError (error : Response|any){
-    let errMsg : string = "error";
-    console.log(errMsg);
-    return Promise.reject(errMsg);
-  }
-
-
-
 
 }

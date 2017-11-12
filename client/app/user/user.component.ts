@@ -1,19 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { UserDataService } from './user-data-service.service';
 import { User } from './user';
+import {UserHis} from './userhis';
+//import {UserCss} from './user.css';
+
 
 @Component({
   selector: 'app-user', 
   template:require("./user.component.html"),
-  // templateUrl: './user.component.html',
-  // styleUrls: ['./user.component.css']
-  providers:[UserDataService] // 해당 서비스를  
+  providers:[UserDataService] //,
+ // styles:UserCss
 })
 export class UserComponent implements OnInit {
   
   userName:string = "parkjh";
   userAge:number = 0;
   errorMsg:string = "";
+  showDialog : boolean = false;
+  userHisList:Array<UserHis>=[];
   //userNameList:Array<string> = ["종혀기","혁이","jhpark"];
   // userNameList:Array<Object> = [
   //   {name : "홍길동", age : 27},
@@ -38,14 +42,16 @@ export class UserComponent implements OnInit {
   ];
   
   userNum:number = 0;
-  constructor(private uds:UserDataService) { }
+  constructor(private uds:UserDataService) {
+    this.getUsers();
+   }
   
   ngOnInit() {
   }
   
-  // selectUserList():void{
-  //   this.userList = this.uds.getUserList();
-  // }
+  selectUserList():void{
+    this.userList = this.uds.getUserList();
+  }
 
   // addUser():void{
 
@@ -64,9 +70,12 @@ export class UserComponent implements OnInit {
   //   console.log(this.userList);
   // }
 
+ 
+
   getUsers():void{
     this.uds.getUsers().subscribe(
       users => {
+        
         this.userList = users
         console.log(users);
       },
@@ -86,7 +95,34 @@ export class UserComponent implements OnInit {
   outputTest(isTest:boolean){
     alert(isTest);
   }
-  outputUser(user:User){
-    this.userList = this.uds.addInsertUser(user).userList;
+
+  outputUser(user:User):void{
+    alert("user "+user);
+    this.uds.addUser(user).subscribe(
+      datas => {
+        console.log(datas);
+        this.userList = datas["list"];
+      },
+      error => {
+        this.errorMsg = <any>error;
+        alert("this.errorMsg "+this.errorMsg);
+      });
+ // this.userList = this.uds.addInsertUser(user).userList;
   }
+
+  showUserHis(userNo:number){
+  
+   this.showDialog  = ! this.showDialog ;
+   this.uds.getUsersHis(userNo).subscribe(
+     datas => {
+       console.log(datas);
+       this.userHisList = datas["list"];
+     },
+     error => {
+       this.errorMsg = <any>error;
+       alert(this.errorMsg);
+     });
+  }
+
+
 }

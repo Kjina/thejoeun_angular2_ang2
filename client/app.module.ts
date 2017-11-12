@@ -18,6 +18,7 @@ import { UserInsertComponent } from './app/user-insert/user-insert.component';
 import { FunctionTestComponent } from './app/function-test/function-test.component';
 import { ArrowFunctionComponent } from './app/arrow-function/arrow-function.component';
 import { PromiseTestComponent } from './app/promise-test/promise-test.component';
+import { UserHisComponent } from './app/user-his/user-his.component';
 enableProdMode();
 
 const routing = RouterModule.forRoot([
@@ -27,7 +28,8 @@ const routing = RouterModule.forRoot([
 	{ path: 'userlist', component: UserComponent},
 	{ path: 'functiontest', component: FunctionTestComponent},
 	{ path: 'arrowfunction', component: ArrowFunctionComponent},
-	{ path: 'promisetest', component: PromiseTestComponent}
+	{ path: 'promisetest', component: PromiseTestComponent},
+	{ path: 'userhis', component: UserHisComponent}
 ]);
 
 @NgModule({
@@ -36,7 +38,7 @@ const routing = RouterModule.forRoot([
     		  HttpModule,
     		  FormsModule,
     		  ReactiveFormsModule],
-    declarations: [AppComponent,
+    declarations: [AppComponent, 
     			   WelcomeComponent,
     			   AccountListComponent,
     			   TestComponent,
@@ -45,7 +47,8 @@ const routing = RouterModule.forRoot([
     			   UserInsertComponent,
     			   FunctionTestComponent,
     			   ArrowFunctionComponent,
-    			   PromiseTestComponent
+    			   PromiseTestComponent,
+    			   UserHisComponent
              ],
     //providers: [],
     bootstrap: [AppComponent]

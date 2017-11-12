@@ -86,4 +86,41 @@ export class PromiseTestComponent implements OnInit {
     test1(test2.bind(null, printLog));
   }
 
+  testPromise():void{
+    this.initLog();
+    let test1 = this.getPromise.bind(this,'test1',2000);
+
+    let test2 = this.getPromise.bind(this,'test2',1000,'테스트2실행하다가 에러났음');
+    let test3 = this.getPromise.bind(this,'test3',1000);
+    let test4= () :void =>{
+        this.setLog('test4');
+    }
+    let printLog = () => {
+        this.setLog("test1 and test2 done");
+    }
+
+    test1()
+    .then(test2)
+    .then(printLog)
+    .catch( 
+        (result:string)=>{
+            this.setLog(result);
+        }
+    )
+    .then(test3).
+    then(function(){
+        return new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                test4();
+                resolve();
+            },1000);
+        })
+    })
+    .then(printLog)
+    .catch(
+        (result:string)=>{
+            this.setLog(result);
+        }
+    )
+}
 }
