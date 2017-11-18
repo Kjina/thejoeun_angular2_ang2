@@ -116,6 +116,10 @@ export class UserComponent implements OnInit {
    this.uds.getUsersHis(userNo).subscribe(
      datas => {
        console.log(datas);
+       if(datas['error']){ // 새로 추가된 if 문 안되면 이거만 지우면됨
+        alert(datas['error']);
+        return;
+       }
        this.userHisList = datas["list"];
      },
      error => {
