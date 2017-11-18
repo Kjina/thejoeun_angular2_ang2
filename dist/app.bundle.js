@@ -86491,7 +86491,7 @@ var UserComponent = (function () {
     UserComponent.prototype.getUsers = function () {
         var _this = this;
         this.uds.getUsers().subscribe(function (users) {
-            _this.userList = users;
+            _this.userList = users["list"];
             console.log(users);
         }, function (error) { return _this.errorMsg = error; });
     };
@@ -86584,7 +86584,7 @@ var UserDataService = (function (_super) {
         _this.userList = [];
         _this.lastUserNo = 0;
         _this.usersUrl = "api/users";
-        _this.userHisUrl = '/api/userhis/';
+        _this.userHisUrl = _this.usersUrl + '/his/';
         return _this;
         // let testUser : User = new User({
         //   userId : "test1",

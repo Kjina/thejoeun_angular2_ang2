@@ -50,7 +50,7 @@ app.get('/api/userhis/:userNo', (req, res, next)=>{
     });
 });
 
-app.post('/api/users',(req,res,next)=>{ // 선생님꺼...복사하기
+app.post('/api/users',(req,res,next)=>{ 
     // var sql = "select 1 from user_info where userId =?";
     // var values = [req.body.userId];
     // connection2(dbConfig).then((con)=>{

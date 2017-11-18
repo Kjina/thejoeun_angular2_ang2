@@ -12,7 +12,7 @@ export class UserDataService extends CommonServiceService{
   userList:Array<User> = [];
   lastUserNo:number = 0;
   private usersUrl:string = "api/users";
-  private userHisUrl = '/api/userhis/';
+  private userHisUrl:string = this.usersUrl +'/his/';
 
   constructor(protected _http:Http) { 
     super(_http);
